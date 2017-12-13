@@ -1,0 +1,45 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>My Cart - {{cartbooks.length}} Items</ion-title>
+
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="checkOut()">
+        <ion-icon name='cart'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let book of cartbooks">
+      <ion-item  (click)="gotoDetail(book)">
+        <ion-thumbnail item-start style="height: 100px">
+          <img src="{{book.image}}" style="height: 100px">
+        </ion-thumbnail>
+        <h2>{{book.title}}</h2>
+        <p>{{book.author}} • {{book.publishDate}}</p>
+        <p>{{book.pages}} Pages</p>
+      </ion-item>
+
+      <ion-item-options>
+
+        <button ion-button icon-only color="light" (click)="editBook(book)">
+          <ion-icon name="paper"></ion-icon>
+        </button>
+
+        <button ion-button icon-only color="danger" (click)="deleteBook(book)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

@@ -1,14 +1,94 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <ion-title>Booktopia</ion-title>
+
+
+      <button ion-button  menuToggle>
+        <ion-icon name='menu'></ion-icon>
+      </button>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addBook()">
+        <ion-icon name='add'></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-menu [content]="mycontent" type="overlay">
+
+  <ion-content>
+    <ion-navbar>
+      <button icon-right ion-button menuToggle>
+        <ion-icon name='menu'></ion-icon>
+      </button>
+    <ion-title>Menu</ion-title>
+    </ion-navbar>
+    <ion-list>
+      <ion-avatar>
+        <img src="/assets/imgs/books.jpg">
+      </ion-avatar>
+      <ion-item>
+        <h1>Welcome Reader!</h1>
+      </ion-item>
+
+      <button (click)="gotoMyBooks()">
+      <ion-item>
+        <ion-icon name="book">&nbsp; My Books</ion-icon>
+      </ion-item>
+      </button>
+      <button (click)="goToCart()">
+      <ion-item>
+        <ion-icon name="pricetags">&nbsp;Shopping Cart</ion-icon>
+      </ion-item>
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #mycontent [root]="rootPage"></ion-nav>
+
+
+<ion-content>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let book of books | async">
+      <ion-item  (click)="gotoDetail(book)">
+      <ion-thumbnail item-start style="height: 100px">
+        <img src="{{book.image}}" style="height: 100px">
+      </ion-thumbnail>
+      <h2>{{book.title}}</h2>
+      <p>{{book.author}} • {{book.publishDate}}</p>
+      <p>{{book.pages}} Pages</p>
+      <p>
+        <button ion-button outline item-end icon-left (click)="addToFavorites(book)">
+        <ion-icon  name="star-outline"></ion-icon>
+         Add to My Books
+      </button>
+      </p>
+      </ion-item>
+
+      <ion-item-options>
+
+        <button ion-button icon-only color="light" (click)="editBook(book)">
+          <ion-icon name="paper"></ion-icon>
+        </button>
+
+        <button ion-button icon-only color="danger" (click)="deleteBook(book)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
 </ion-content>
+
+<button ion-button clear item-end (click)="deleteBook(book)"><ion-icon name="menu"></ion-icon></button>
+
+
+
+
