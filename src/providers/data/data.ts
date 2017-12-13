@@ -20,6 +20,7 @@ export class DataProvider {
 
   bookListRef:AngularFirestoreCollection<Book>;
   bookList: Observable<Book[]>;
+
   myBooks: Book[] = [];
   cartBooks: Book[] = [];
 
@@ -34,9 +35,30 @@ export class DataProvider {
     });
   }
 
+  getItems(searchTerms) {
+
+
+
+    this.books = this.books.filter((book) => {
+      if(book.title && t) {
+        if (book.title.toLowerCase().indexOf(t.toLowerCase()) > -1) {
+          return true;
+
+        }
+        return false;
+      }
+    });
+
+  }
+
   addToCart(book) {
     this.cartBooks.push(book);
   }
+
+  clearCart() {
+    this.cartBooks = [];
+  }
+
 
   deleteBook(bookID):void {
     this.bookListRef.doc(bookID).delete();

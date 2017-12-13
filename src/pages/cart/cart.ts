@@ -54,6 +54,7 @@ export class CartPage {
 
   clearCart():void {
     this.cartbooks = [];
+    this.dataService.clearCart();
   }
 
 

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import {
-  ActionSheetController, AlertController, Keyboard, LoadingController, MenuController, NavController, ToastController,
+  ActionSheetController, AlertController, IonicPage, Keyboard, LoadingController, MenuController, NavController,
+  ToastController,
 } from 'ionic-angular';
 import {DataProvider} from "../../providers/data/data";
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -11,7 +13,7 @@ import {DataProvider} from "../../providers/data/data";
 export class HomePage {
 
   books:any;
-  searchQuery: string = '';
+  searchTerms: string = '';
   items:any;
 
   constructor(public navCtrl: NavController, public actionSheetCtrl: ActionSheetController, private dataService:DataProvider,
@@ -27,29 +29,41 @@ export class HomePage {
     this.books = this.items;
   }
 
-  getItems(ev: any) {
+ /* getItems(ev: any) {
     this.initializeItems();
 
-    // set q to the value of the searchbar
-    var q = ev.srcElement.value;
+    // set t to the value of the searchbar
+    var t = ev.srcElement.value;
 
 
     // if the value is an empty string don't filter the items
-    if (!q) {
+    if (!t) {
       return;
     }
 
     this.books = this.books.filter((book) => {
-      if(book.title && q) {
-        if (book.title.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+      console.log(t);
+      console.log(book.title);
+      if(book.title && t) {
+        if (book.title.toLowerCase().indexOf(t.toLowerCase()) > -1) {
           return true;
+
         }
         return false;
       }
     });
 
-  }
+  }*/
 
+
+  getItems() {
+    console.log(this.searchTerms);
+    return this.items.filter((item) => {
+      return item.title.toLowerCase().indexOf(this.searchTerms.toLowerCase()) > -1;
+
+    })
+
+  }
 
   openMenu() {
     this.menuCtrl.open();
@@ -168,7 +182,8 @@ export class HomePage {
 
     let toast = this.toastCtrl.create({
       message: 'Book was added successfully',
-      duration: 2000
+      duration: 2000,
+      position: 'top'
     });
     toast.present();
 

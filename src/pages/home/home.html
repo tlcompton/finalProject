@@ -50,7 +50,7 @@
 
 
 <ion-content>
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchTerms" (ionInput)="getItems()"></ion-searchbar>
 
 
 

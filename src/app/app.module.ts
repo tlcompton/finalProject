@@ -14,8 +14,6 @@ import {AngularFireModule} from "angularfire2";
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-
   ],
   imports: [
     BrowserModule,
@@ -26,7 +24,6 @@ import {AngularFireModule} from "angularfire2";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
   ],
   providers: [
     StatusBar,
